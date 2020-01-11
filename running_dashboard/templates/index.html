@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test openlayers with django</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css'%}" type="text/css">
+  </head>
+  <body>
+      <div class="nav-bar">
+          <ul>
+            <li> <a href="">Add new run</a></li>
+            <li><a href="">See specific run</a></li>
+            <li><a href="">See all runs</a></li>
+          </ul>
+        </div>
+    <div class="top-text">
+        <h1>Observe your past runs</h1>
+        <p> You have recorded a total of {{num_runs}} runs.</p>
+        <p> You have run a total of {{total_length}} Kilometers.</p>
+    </div>
+    <div id="map"></div>
+    <div id="data" hidden>{{ runs }}</div>
+    {% load static %}
+    <script src="{% static './bundle.js' %}" data={{ runs }}></script>
+  </body>
+</html>
