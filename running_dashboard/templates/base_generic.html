@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Running dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css">
+  </head>
+  <body>
+    {% block top%}
+    <div class="top">
+      <h1>Running dashboard</h1>
+    </div>
+    {% endblock %}
+    {% block nav-bar%}
+    <div class="nav-bar">
+      <ul>
+        <li> <a href="">Add new run</a></li>
+        <li><a href="">See specific run</a></li>
+        <li><a href="">See all runs</a></li>
+      </ul>
+    </div>
+    {% endblock %}
+    {% block content%}
+    {% endblock %}
+  </body>
+</html>

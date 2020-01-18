@@ -58,3 +58,4 @@ var run_layer =  new VectorLayer({
 
 
 map.addLayer(run_layer);
+console.log(map.getTargetElement())
