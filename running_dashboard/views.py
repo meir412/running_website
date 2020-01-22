@@ -1,6 +1,7 @@
 
 from django.shortcuts import render
 from django.core.serializers import serialize
+from django.views import generic
 from running_dashboard.models import Run
 
 
@@ -18,6 +19,13 @@ def index(request):
         lengths[i+1] = (Run.objects.get(id=i+1).route.transform(3857, clone=True).length)/(1.183)
         total_length += lengths[i+1]
 
-    total_length_km = round(total_length / 1000 , 2)
+    total_length_km = round(total_length / 1000, 2)
     context = {'num_runs': num_runs, 'total_length': total_length_km,'runs': run_geojson}
     return render(request, 'index.html', context=context)
+
+
+class RunListView(generic.ListView):
+
+    model = Run
+    queryset = Run.objects.order_by('id')
+

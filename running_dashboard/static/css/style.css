@@ -76,3 +76,10 @@ h1 {
     box-sizing: border-box;
   }
 
+  .content {
+      width: 80%;
+      float: right;
+      box-sizing: border-box;
+      padding-left: 5px;
+      color: blue;
+  }
