@@ -12,4 +12,8 @@
         <li> Duration of Run (seconds): {{ run.time_sec }}</li>
     </ol>
 </div>
+<div id="map"></div>
+<div id="data" hidden>{{ route }}</div>
+{% load static %}
+<script src="{% static './bundle.js' %}" data={{ runs }}></script>
 {% endblock %}

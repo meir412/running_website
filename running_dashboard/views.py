@@ -33,3 +33,13 @@ class RunListView(generic.ListView):
 class RunDetailView(generic.DetailView):
 
     model = Run
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(RunDetailView, self).get_context_data(**kwargs)
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        # Create any data and add it to the context
+        query = [Run.objects.get(id=pk)]
+        run_geojson = serialize('geojson', query, geometry_field='route', srid=3857, fields=('id', 'time_sec',))
+        context['route'] = run_geojson
+        return context
