@@ -1,17 +1,20 @@
 {% extends "base_generic.html" %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css">
-
 {% block content %}
-<div class=content>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/run_list.css'%}" type="text/css">
+
+<div class=run_list>
     <h2>Your Run List</h2>
     {% if run_list %}
     <ul>
       {% for run in run_list %}
         <li>
           <!-- <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}}) -->
-          {{ run.start_time }}
+          <!-- {{ run.start_time }} -->
+          <a href="{% url 'run-detail' pk=run.id %}"> Your run at {{ run.start_time}} </a>
+          <!-- <a href="">bla</a> -->
         </li>
       {% endfor %}
     </ul>

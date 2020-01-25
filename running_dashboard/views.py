@@ -29,3 +29,7 @@ class RunListView(generic.ListView):
     model = Run
     queryset = Run.objects.order_by('id')
 
+
+class RunDetailView(generic.DetailView):
+
+    model = Run

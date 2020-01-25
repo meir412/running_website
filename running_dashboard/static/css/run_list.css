@@ -1,0 +1,12 @@
+
+.run_list {
+    width: 80%;
+    float: right;
+    box-sizing: border-box;
+    padding-left: 5px;
+    color: white;
+}
+
+.run_list a {
+    color:white;
+}

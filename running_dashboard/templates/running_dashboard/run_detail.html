@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/run_detail.css'%}" type="text/css">
+
+<div class=run_detail>
+    <ol>
+        <li> Run id: {{ run.id }}</li>
+        <li> Run start time: {{ run.start_time }}</li>
+        <li> Duration of Run (seconds): {{ run.time_sec }}</li>
+    </ol>
+</div>
+{% endblock %}
