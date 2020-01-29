@@ -1,0 +1,25 @@
+## Steps to run website on linux environment
+
+sudo apt-get install python3.7
+sudo apt-get install python3-virtualenv
+sudo apt-get install python3-pip
+sudo apt-get install libpq-dev
+sudo apt-get install postgresql postgresql-contrib
+
+python3.7 -m virtualenv --python=/usr/bin/python3.7 env
+source env/bin/activate
+pip install -r requirements.txt
+
+sudo -u postgres psql
+create database running;
+create user uri with password 'ayala123';
+grant all privileges on database running_website to uri;
+alter role uri SUPERUSER;
+
+clone repository
+python manage.py migrate
+python manage.py loaddata running_dashboard/fixtures/run.json
+python manage.py runserver
+
+
+
