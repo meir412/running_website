@@ -1,0 +1,16 @@
+
+.registration {
+    width: 80%;
+    float: right;
+    box-sizing: border-box;
+    padding-left: 5px;
+    color: white;
+}
+
+.registration a {
+    color: white;
+}
+
+.registration a:hover {
+    color: blue;
+}

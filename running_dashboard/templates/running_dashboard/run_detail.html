@@ -1,19 +1,23 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+{% if user == run.runner or user.is_superuser %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/run_detail.css'%}" type="text/css">
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/run_detail.css'%}" type="text/css">
-
-<div class=run_detail>
-    <ol>
-        <li> Run id: {{ run.id }}</li>
-        <li> Run start time: {{ run.start_time }}</li>
-        <li> Duration of Run (seconds): {{ run.time_sec }}</li>
-    </ol>
-</div>
-<div id="map"></div>
-<div id="data" hidden>{{ route }}</div>
-{% load static %}
-<script src="{% static './bundle.js' %}" data={{ runs }}></script>
+    <div class=run_detail>
+        <ol>
+            <li> Run id: {{ run.id }}</li>
+            <li> Run start time: {{ run.start_time }}</li>
+            <li> Duration of Run (seconds): {{ run.time_sec }}</li>
+        </ol>
+    </div>
+    <div id="map"></div>
+    <div id="data" hidden>{{ route }}</div>
+    {% load static %}
+    <script src="{% static './bundle.js' %}" data={{ runs }}></script>
+{% else %}
+    <p> user: {{ user }}</p>
+    <p> run.runner: {{ run.runner }}</p>
+{% endif %}
 {% endblock %}

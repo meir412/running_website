@@ -12,6 +12,26 @@ body {
     background-color: #001a33;
     border: 1px black solid;
     padding-bottom: 10px;
+    height: 5%;
+}
+
+.title {
+    width: 90%;
+    float: left;
+}
+
+.login {
+    list-style-type: none;
+    color: blue;
+}
+
+.login a {
+    text-decoration: none;
+    color: blue;
+}
+
+.login a:hover {
+    color: white;
 }
 
 .nav-bar {
