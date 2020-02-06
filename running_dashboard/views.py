@@ -48,7 +48,7 @@ class RunDetailView(LoginRequiredMixin, generic.DetailView):
         queryset = self.get_queryset()
         pk = self.kwargs.get(self.pk_url_kwarg)
         query = Run.objects.get(id=pk)
-        if query.runner is not self.request.user:
+        if query.runner is not self.request.user and not self.request.user.is_superuser:
             return redirect('login')
         return super().get(request, *args, **kwargs)
 
