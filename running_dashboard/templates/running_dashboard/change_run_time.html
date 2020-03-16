@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Change duration for run: {{ run_instance.id }}</h1>
+  <p>Current duration (in seconds): {{ run_instance.time_sec }}</p>
+    
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

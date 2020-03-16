@@ -6,3 +6,14 @@
     padding-left: 5px;
     color: white;
 }
+
+.run_detail a {
+    text-decoration: none;
+    color: blue;
+}
+
+.run_detail a:hover {
+  text-decoration: none;
+  color: white;
+}
+

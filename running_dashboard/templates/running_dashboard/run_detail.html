@@ -11,6 +11,9 @@
             <li> Run start time: {{ run.start_time }}</li>
             <li> Duration of Run (seconds): {{ run.time_sec }}</li>
         </ol>
+        <a href="{% url 'run-update' pk=run.id %}">Update Run</a>
+        <br>
+        <a href="{% url 'run-delete' pk=run.id %}">Delete Run</a>
     </div>
     <div id="map"></div>
     <div id="data" hidden>{{ route }}</div>
