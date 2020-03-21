@@ -1,0 +1,3 @@
+###
+* This placeholder makes sure that the empty staticfiles directory will not be ignored by git.
+

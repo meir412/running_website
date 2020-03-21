@@ -1,4 +1,4 @@
-## Steps to run website on linux environment
+## Steps to run website on local django development server
 
 sudo apt-get install python3.7
 sudo apt-get install python3-virtualenv
@@ -12,9 +12,9 @@ pip install -r requirements.txt
 
 sudo -u postgres psql
 create database running;
-create user uri with password 'ayala123';
-grant all privileges on database running_website to uri;
-alter role uri SUPERUSER;
+create user local_user with password 'password';
+grant all privileges on database running_website to local_user;
+alter role local_user SUPERUSER;
 
 clone repository
 python manage.py migrate
