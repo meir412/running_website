@@ -1,0 +1,15 @@
+{% autoescape off %}
+Hi {{ user.username }},
+This is an email from the Running Website.
+You have just signed up as a new user using the address: {{ user.email }}
+Please click on the link to confirm your registration and receive access to the website:
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+If this request wasn't made by you, please disregard.
+
+Thanks,
+
+Running Website
+
+{% endautoescape %}

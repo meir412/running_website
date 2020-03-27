@@ -6,16 +6,25 @@ from django.shortcuts import get_object_or_404
 from django.core.serializers import serialize
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.urls import reverse_lazy
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from running_dashboard.forms import ChangeRunDurationForm
 from running_dashboard.forms import AddRunForm
+from running_dashboard.forms import SignUpForm
 from running_dashboard.models import Run
+from running_dashboard.tokens import account_activation_token
 
 @login_required
 def index(request):
@@ -35,7 +44,7 @@ def index(request):
     context = {'num_runs': num_runs, 'total_length': total_length_km, 'runs': run_geojson, 'num_visits': num_visits}
     return render(request, 'index.html', context=context)
 
-
+@login_required
 def change_run_duration(request, pk):
     run_instance = get_object_or_404(Run, pk=pk)
 
@@ -66,7 +75,7 @@ def change_run_duration(request, pk):
 
     return render(request, 'running_dashboard/change_run_time.html', context)
 
-
+@login_required
 def addNewRun(request):
 
     if request.method == 'POST':
@@ -127,9 +136,9 @@ class RunDetailView(LoginRequiredMixin, generic.DetailView):
         return context
 
 
-class RunCreate(CreateView):
-    model = Run
-    fields = '__all__'
+# class RunCreate(CreateView):
+#     model = Run
+#     fields = '__all__'
 
 
 class RunUpdate(UpdateView):
@@ -142,3 +151,57 @@ class RunUpdate(UpdateView):
 class RunDelete(DeleteView):
     model = Run
     success_url = reverse_lazy('index')
+
+
+def signUp(request):
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your running website account.'
+            message = render_to_string('registration/signup_activation_mail.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+
+            # username = form.cleaned_data.get('username')
+            # password = form.cleaned_data.get('password1')
+            # user = authenticate(username=username, password=password)
+            # login(request, user)
+            return render(request, 'awaiting_activation.html')
+
+        return render(request, 'sign_up.html', {'form': form})
+
+    else:
+        form = SignUpForm()
+        return render(request, 'sign_up.html', {'form': form})
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return redirect('index')
+
+    else:
+        return render(request, 'registration/invalid_activation_link.html')

@@ -3,6 +3,8 @@ import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 from running_dashboard.models import Run
 
@@ -38,3 +40,29 @@ class AddRunForm(forms.Form):
 
     class Meta:
         model = Run
+
+
+class UniqueUserEmailField(forms.EmailField):
+    """
+    An EmailField which only is valid if no User has that email.
+    """
+    def validate(self, value):
+        super(forms.EmailField, self).validate(value)
+        try:
+            User.objects.get(email=value)
+            raise forms.ValidationError("A user with that email is already registered")
+        except User.MultipleObjectsReturned:
+            raise forms.ValidationError("A user with that email is already registered")
+        except User.DoesNotExist:
+            pass
+
+
+class SignUpForm(UserCreationForm):
+    username = forms.CharField(max_length=30, help_text="")
+    email = UniqueUserEmailField(max_length=200)
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+
+
