@@ -30,7 +30,7 @@ class AddRunForm(forms.Form):
 
     start_time = forms.DateTimeField(label="Start Time", widget=forms.DateTimeInput(attrs= {'placeholder':"2019-12-31 16:30:00"}))
     time_sec = forms.IntegerField(label="Duration")
-    # route = forms.FileField(label="Route (Upload GPX file)")
+    route = forms.FileField(label="Route (Upload GPX file)")
 
     def clean(self):
 
