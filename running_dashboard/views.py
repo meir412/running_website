@@ -25,6 +25,7 @@ from running_dashboard.forms import AddRunForm
 from running_dashboard.forms import SignUpForm
 from running_dashboard.models import Run
 from running_dashboard.tokens import account_activation_token
+from running_dashboard.util import gpxToWkt
 
 @login_required
 def index(request):
@@ -84,9 +85,18 @@ def addNewRun(request):
         print('hi')
 
         if form.is_valid():
-            pass
-            # run = Run(time_sec=, start_time=, route=, runner=)
-            # run.save()
+            # pass
+            start_time = form.cleaned_data['start_time']
+            time_sec = form.cleaned_data['time_sec']
+            gpx_file = form.cleaned_data['route']
+
+            route = gpxToWkt(gpx_file.read().decode('utf-8'))
+            print('hi')
+            run = Run(time_sec=time_sec, start_time=start_time, route=route)
+            # run = Run(time_sec=time_sec, start_time=start_time, route=route, runner=)
+            run.save()
+
+            return HttpResponseRedirect(reverse('index'))
 
     else:
 
