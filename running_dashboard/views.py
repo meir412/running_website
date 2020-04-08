@@ -85,15 +85,13 @@ def addNewRun(request):
         print('hi')
 
         if form.is_valid():
-            # pass
             start_time = form.cleaned_data['start_time']
             time_sec = form.cleaned_data['time_sec']
             gpx_file = form.cleaned_data['route']
+            runner = request.user
 
             route = gpxToWkt(gpx_file.read().decode('utf-8'))
-            print('hi')
-            run = Run(time_sec=time_sec, start_time=start_time, route=route)
-            # run = Run(time_sec=time_sec, start_time=start_time, route=route, runner=)
+            run = Run(time_sec=time_sec, start_time=start_time, route=route, runner=runner)
             run.save()
 
             return HttpResponseRedirect(reverse('index'))
