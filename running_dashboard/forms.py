@@ -32,11 +32,42 @@ class AddRunForm(forms.Form):
     time_sec = forms.IntegerField(label="Duration")
     route = forms.FileField(label="Route (Upload GPX file)")
 
-    def clean(self):
+    # def clean(self):
 
-        data = self.cleaned_data
+    #     data = self.cleaned_data
+
+    #     return data
+
+    def clean_start_time(self):
+        
+        data = self.cleaned_data['start_time']
+
+        if data.date() > datetime.date.today():
+            raise forms.ValidationError("The date for this run hasn't occured yet")
 
         return data
+
+    def clean_time_sec(self):
+        
+        data = self.cleaned_data['time_sec']
+
+        if data < 0:
+            raise forms.ValidationError(
+            "The run duration must be a non negative number of seconds")
+
+        return data
+
+    def clean_route(self):
+        
+        data = self.cleaned_data['route']
+        # data = data.read().decode('utf-8')
+
+        if data.content_type != 'application/gpx+xml':
+            raise forms.ValidationError(
+            "The file representing the route must be a gpx file")
+
+        return data
+
 
     class Meta:
         model = Run
