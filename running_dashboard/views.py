@@ -78,6 +78,13 @@ def change_run_duration(request, pk):
 
 @login_required
 def addNewRun(request):
+    """
+    This view allows a user to add a new run and associate it with their account.
+    The view renders a form with inputs for the start time, duration of the run and the route.
+    If the form doesn't pass validations it is rendered again with errors.
+    If the form passes all validations, the run is added to the db and the user is redirected
+    to the home page.
+    """
 
     if request.method == 'POST':
 

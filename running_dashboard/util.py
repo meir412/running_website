@@ -1,9 +1,13 @@
 import os
 import gpxpy
 
-def gpxToWkt(gpx_file):
-
-    gpx = gpxpy.parse(gpx_file)
+def gpxToWkt(gpx_string):
+    """
+    Function that receives a string containing the contents of a gpx file, parses it using
+    a method from the gpxpy module and returns a string containing the well known text value
+    of the route or track found in the gpx string.
+    """
+    gpx = gpxpy.parse(gpx_string)
     wkt = "LINESTRING ("
 
     if len(gpx.tracks) > 0:

@@ -27,6 +27,10 @@ class ChangeRunDurationForm(forms.Form):
 
 
 class AddRunForm(forms.Form):
+    """
+    Form that is intended to allow the user to add a new run to the db using 3 input fields.
+    The form is used by the `AddNewRun` view.
+    """
 
     start_time = forms.DateTimeField(label="Start Time", widget=forms.DateTimeInput(attrs= {'placeholder':"2019-12-31 16:30:00"}))
     time_sec = forms.IntegerField(label="Duration")
