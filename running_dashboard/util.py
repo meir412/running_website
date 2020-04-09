@@ -1,13 +1,8 @@
 import os
 import gpxpy
 
-# dir = os.getcwd()
-# os.chdir(os.path.join(os.path.expanduser('~'), '/home/uri/Documents/programming/experiments/gpx'))
-# fname = input('Paste layer name:')
-
 def gpxToWkt(gpx_file):
 
-    # gpx_file = open(fname)
     gpx = gpxpy.parse(gpx_file)
     wkt = "LINESTRING ("
 

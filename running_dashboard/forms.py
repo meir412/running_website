@@ -32,14 +32,8 @@ class AddRunForm(forms.Form):
     time_sec = forms.IntegerField(label="Duration")
     route = forms.FileField(label="Route (Upload GPX file)")
 
-    # def clean(self):
-
-    #     data = self.cleaned_data
-
-    #     return data
-
     def clean_start_time(self):
-        
+
         data = self.cleaned_data['start_time']
 
         if data.date() > datetime.date.today():
@@ -60,7 +54,6 @@ class AddRunForm(forms.Form):
     def clean_route(self):
         
         data = self.cleaned_data['route']
-        # data = data.read().decode('utf-8')
 
         if data.content_type != 'application/gpx+xml':
             raise forms.ValidationError(
