@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from running_dashboard.models import Run
+from running_dashboard.util import gpxToWkt
 
 
 class ChangeRunDurationForm(forms.Form):
@@ -59,9 +60,13 @@ class AddRunForm(forms.Form):
         
         data = self.cleaned_data['route']
 
-        if data.content_type != 'application/gpx+xml':
+        try:
+            data = data.read().decode('utf-8')
+            data = gpxToWkt(data)
+
+        except (UnicodeDecodeError, ValueError) as e:
             raise forms.ValidationError(
-            "The file representing the route must be a gpx file")
+                "The file representing the route must be a gpx file")
 
         return data
 
