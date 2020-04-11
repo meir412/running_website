@@ -129,10 +129,10 @@ class RunDetailView(LoginRequiredMixin, generic.DetailView):
     model = Run
 
     def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
+
         pk = self.kwargs.get(self.pk_url_kwarg)
         query = Run.objects.get(id=pk)
-        if query.runner is not self.request.user and not self.request.user.is_superuser:
+        if query.runner.id != self.request.user.id and not self.request.user.is_superuser:
             return redirect('login')
         return super().get(request, *args, **kwargs)
 
@@ -145,11 +145,6 @@ class RunDetailView(LoginRequiredMixin, generic.DetailView):
         run_geojson = serialize('geojson', query, geometry_field='route', srid=3857, fields=('id', 'time_sec',))
         context['route'] = run_geojson
         return context
-
-
-# class RunCreate(CreateView):
-#     model = Run
-#     fields = '__all__'
 
 
 class RunUpdate(UpdateView):
