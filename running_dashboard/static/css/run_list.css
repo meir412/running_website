@@ -1,12 +1,2 @@
-
-.run_list {
-    width: 80%;
-    float: right;
-    box-sizing: border-box;
-    padding-left: 5px;
-    color: white;
-}
-
-.run_list a {
-    color:white;
-}
+.run_list{width:80%;float:right;-webkit-box-sizing:border-box;box-sizing:border-box;padding-left:5px;color:#fff}.run_list ul{list-style:none;padding-left:0}.run_list ul li{padding-top:0.5%;padding-bottom:0.5%}.run_list a{color:#fff}.run_list a:hover{color:blue}
+/*# sourceMappingURL=run_list.css.map */

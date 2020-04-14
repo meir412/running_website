@@ -1,0 +1,28 @@
+$primary_color: white;
+$hover_color: blue;
+
+.run_list {
+    width: 80%;
+    float: right;
+    box-sizing: border-box;
+    padding-left: 5px;
+    color: $primary_color;
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+
+        li {
+            padding-top: 0.5%;
+            padding-bottom: 0.5%;
+        }
+    }
+
+    a {
+        color:$primary_color;
+    }
+
+    a:hover {
+        color: $hover_color;
+    }
+}

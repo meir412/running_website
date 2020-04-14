@@ -149,7 +149,7 @@ class RunDetailView(LoginRequiredMixin, generic.DetailView):
 
 class RunUpdate(UpdateView):
     model = Run
-    fields = ['time_sec', 'start_time']
+    fields = ['time_sec', 'start_time', 'route']
     success_url = reverse_lazy('index')
     # exclude = ['time_sec']
 

@@ -6,14 +6,39 @@
     <link rel="stylesheet" href="{% static 'css/run_detail.css'%}" type="text/css">
 
     <div class=run_detail>
-        <ol>
-            <li> Run id: {{ run.id }}</li>
-            <li> Run start time: {{ run.start_time }}</li>
-            <li> Duration of Run (seconds): {{ run.time_sec }}</li>
-        </ol>
-        <a href="{% url 'run-update' pk=run.id %}">Update Run</a>
-        <br>
-        <a href="{% url 'run-delete' pk=run.id %}">Delete Run</a>
+        <h1> Run Details</h1>
+
+        <div class=horizontal_flex>
+            <div class=table_data>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Length</th>
+                        <th>Duration</th>
+                        <th>Average Pace</th>
+                    </tr>
+                    <tr>
+                      <td>{{ run.start_time.date }}</td>  
+                      <td>{{ run.start_time.time }}</td>  
+                      <td>{{ run.length }} meters</td>  
+                      <td>{{ run.duration }} (hh:mm:ss)</td>  
+                      <td>{{ run.average_pace }} min per km</td>  
+                    </tr>
+                </table>    
+            </div>
+            <div class=links>
+                <ul>
+                    <li>
+                        <!-- <a href="{% url 'run-update' pk=run.id %}">Update Run</a> -->
+                    </li>
+                    <li>
+                        <a href="{% url 'run-delete' pk=run.id %}">Delete Run</a>    
+                    </li>
+                </ul>
+            </div>
+    
+        </div>
     </div>
     <div id="map"></div>
     <div id="data" hidden>{{ route }}</div>
