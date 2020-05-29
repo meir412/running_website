@@ -25,7 +25,7 @@ from running_dashboard.forms import AddRunForm
 from running_dashboard.forms import SignUpForm
 from running_dashboard.models import Run
 from running_dashboard.tokens import account_activation_token
-from running_dashboard.util import gpxToWkt
+from running_dashboard.util import attributesFromGpx
 
 @login_required
 def index(request):
@@ -80,7 +80,7 @@ def change_run_duration(request, pk):
 def addNewRun(request):
     """
     This view allows a user to add a new run and associate it with their account.
-    The view renders a form with inputs for the start time, duration of the run and the route.
+    The view renders a form with input for the gpx file.
     If the form doesn't pass validations it is rendered again with errors.
     If the form passes all validations, the run is added to the db and the user is redirected
     to the home page.
@@ -91,14 +91,15 @@ def addNewRun(request):
         form = AddRunForm(request.POST, request.FILES)
 
         if form.is_valid():
-            start_time = form.cleaned_data['start_time']
-            time_sec = form.cleaned_data['time_sec']
-            route = form.cleaned_data['route']
+            gpx_file = form.cleaned_data['gpx_file']
+            start_time = gpx_file['start_time']
+            time_sec = gpx_file['time_sec']
+            route = gpx_file['wkt']
             runner = request.user
             run = Run(time_sec=time_sec, start_time=start_time, route=route, runner=runner)
             run.save()
 
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('run-detail', args=[run.id]))
 
     else:
         form = AddRunForm()

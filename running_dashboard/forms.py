@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 from running_dashboard.models import Run
-from running_dashboard.util import gpxToWkt
+from running_dashboard.util import attributesFromGpx
 
 
 class ChangeRunDurationForm(forms.Form):
@@ -29,46 +29,26 @@ class ChangeRunDurationForm(forms.Form):
 
 class AddRunForm(forms.Form):
     """
-    Form that is intended to allow the user to add a new run to the db using 3 input fields.
+    Form that is intended to allow the user to add a new run to the db using an input field for a gpx file.
     The form is used by the `AddNewRun` view.
     """
 
-    start_time = forms.DateTimeField(label="Start Time", widget=forms.DateTimeInput(attrs= {'placeholder':"2019-12-31 16:30:00"}))
-    time_sec = forms.IntegerField(label="Duration")
-    route = forms.FileField(label="Route (Upload GPX file)")
+    gpx_file = forms.FileField(label="Upload GPX file")
 
-    def clean_start_time(self):
 
-        data = self.cleaned_data['start_time']
-
-        if data.date() > datetime.date.today():
-            raise forms.ValidationError("The date for this run hasn't occured yet")
-
-        return data
-
-    def clean_time_sec(self):
+    def clean_gpx_file(self):
         
-        data = self.cleaned_data['time_sec']
-
-        if data < 0:
-            raise forms.ValidationError(
-            "The run duration must be a non negative number of seconds")
-
-        return data
-
-    def clean_route(self):
-        
-        data = self.cleaned_data['route']
+        data = self.cleaned_data['gpx_file']
 
         try:
             data = data.read().decode('utf-8')
-            data = gpxToWkt(data)
+            attributes = attributesFromGpx(data)
 
         except (UnicodeDecodeError, ValueError) as e:
             raise forms.ValidationError(
-                "The file representing the route must be a gpx file")
+                "The file representing the run must be a gpx file with a recorded track")
 
-        return data
+        return attributes
 
 
     class Meta:
