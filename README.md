@@ -1,5 +1,5 @@
 # Usage
-* Navigate to https://running-website.herokuapp.com/
+* Navigate to http://running-website-eu.herokuapp.com
 * The `Running website` is a hobby django project intended to help users plan and track
 their runs
 
