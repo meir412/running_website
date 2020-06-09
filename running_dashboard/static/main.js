@@ -44,7 +44,7 @@ var run_style = new Style({
   }),
   stroke: new Stroke({
     color: [0,0,255,1.0],
-    width: 4,
+    width: 3,
     lineJoin: 'round'
   })
 })
@@ -58,4 +58,4 @@ var run_layer =  new VectorLayer({
 
 
 map.addLayer(run_layer);
-console.log(map.getTargetElement())
+map.getView().fit(run_layer.getSource().getExtent(), map.getSize());
