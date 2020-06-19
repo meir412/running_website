@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponseRedirect
@@ -27,8 +28,13 @@ from running_dashboard.models import Run
 from running_dashboard.tokens import account_activation_token
 from running_dashboard.util import attributesFromGpx
 
-@login_required
+
 def index(request):
+
+    return render(request, 'index.html')
+
+@login_required
+def runSummary(request):
 
     if request.user.is_superuser:
         query = Run.objects.all()
@@ -43,7 +49,7 @@ def index(request):
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
     context = {'num_runs': num_runs, 'total_length': total_length_km, 'runs': run_geojson, 'num_visits': num_visits}
-    return render(request, 'index.html', context=context)
+    return render(request, 'run_summary.html', context=context)
 
 @login_required
 def change_run_duration(request, pk):
@@ -151,16 +157,19 @@ class RunDetailView(LoginRequiredMixin, generic.DetailView):
 class RunUpdate(UpdateView):
     model = Run
     fields = ['time_sec', 'start_time', 'route']
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('run-summary')
     # exclude = ['time_sec']
 
 
 class RunDelete(DeleteView):
     model = Run
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('run-summary')
 
 
 def signUp(request):
+
+    if request.user.is_authenticated:
+        return redirect('logged-in')
 
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -208,7 +217,18 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return redirect('index')
+        return redirect('run-summary')
 
     else:
         return render(request, 'registration/invalid_activation_link.html')
+
+def logIn(request):
+
+    if not request.user.is_anonymous:
+        return redirect('logged-in')
+
+    return redirect('login')
+
+
+def loggedIn(request):
+    return render(request, 'logged_in.html')

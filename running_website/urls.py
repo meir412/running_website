@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from django.views.generic import RedirectView
+from running_dashboard import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('running_dashboard/', include('running_dashboard.urls')),
     path('', RedirectView.as_view(url='running_dashboard/', permanent=True)),
+    path('login/', views.logIn, name='log-in'),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

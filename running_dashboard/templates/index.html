@@ -1,16 +1,37 @@
 {% extends "base_generic.html" %}
 
 {% block content%}
-<!-- <div class="content"> -->
-  <div class="top-text">
-    <h1>Observe your past runs</h1>
-    <p> You have recorded a total of {{num_runs}} runs.</p>
-    <p> You have run a total of {{total_length}} Kilometers.</p>
-  </div>
-  <div id="map"></div>
-  <!-- <p>You have visited this page a total of {{ num_visits }} times.</p> -->
-  <div id="data" hidden>{{ runs }}</div>
-<!-- </div> -->
+
 {% load static %}
-<script src="{% static './bundle.js' %}" data={{ runs }}></script>
+<link rel="stylesheet" href="{% static 'css/home.css'%}" type="text/css">
+
+<h1>Welcome to Running Dashboard!</h1>
+<p>The web app that allows you to store and analyze your running data</p>
+<h2>How to get started</h2>
+<ol>
+    <li> <a href="{% url 'sign-up' %}">Sign up</a> (or <a href="{% url 'log-in'%}">log in</a> if you are an existing user)</li>
+    <li> Record your run as a gpx file using your phone or wearable device
+        <p> A reccomended gps recording app for android is <a href="https://gpslogger.app/"> gps logger</a></p>
+    </li>
+    <li> 
+        Navigate to "Add new run" on the menu on the left in order to upload your gpx file: <br>
+        {% load static %}
+        <img src="{% static 'img/add_new_run.png'%}">
+    </li>
+    <li> 
+        Navigate to "See specific run" in order to see a list of all your runs: <br>
+        {% load static %}
+        <img src="{% static 'img/choose_specific_run.png'%}">
+    </li>
+    <li> 
+        Choose a run from the list and see your route on a map, and interesting details regarding your run: <br>
+        {% load static %}
+        <img src="{% static 'img/see_specific_run.png'%}">
+    </li>
+    <li> 
+        Navigate to "See all runs" In order to see all your routes together on a map, and a summary of your runs and distances: <br>
+        {% load static %}
+        <img src="{% static 'img/see_all_runs.png'%}">
+    </li>
+</ol>
 {% endblock %}

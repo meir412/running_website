@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content%}
+<!-- <div class="content"> -->
+  <div class="top-text">
+    <h1>Observe your past runs</h1>
+    <p> You have recorded a total of {{num_runs}} runs.</p>
+    <p> You have run a total of {{total_length}} Kilometers.</p>
+  </div>
+  <div id="map"></div>
+  <!-- <p>You have visited this page a total of {{ num_visits }} times.</p> -->
+  <div id="data" hidden>{{ runs }}</div>
+<!-- </div> -->
+{% load static %}
+<script src="{% static './bundle.js' %}" data={{ runs }}></script>
+{% endblock %}

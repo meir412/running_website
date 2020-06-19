@@ -4,35 +4,42 @@
     <meta charset="utf-8">
     <title>Running Dashboard</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/generic.css'%}" type="text/css">
   </head>
   <body>
-    {% block top%}
+    <div class="container">
+          <!-- {% block top%} -->
     <div class="top">
       <div class="title">
-        <h1>Running Dashboard</h1>
+        <h1><a href="{% url 'index' %}">Running Dashboard</a></h1>
       </div>
       <div class="login">
         {% if user.is_authenticated %}
         <li>User: {{ user.get_username }}</li>
-        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+        <li><a href="{% url 'logout'%}?next={% url 'index' %}">Logout</a></li>   
         {% else %}
-        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li> 
+        <li><a href="{% url 'log-in'%}?next={{request.path}}">Login</a></li> 
         <li><a href="{% url 'sign-up' %}">Sign Up</a></li>  
       {% endif %} 
       </div>
     </div>
-    {% endblock %}
-    {% block nav-bar%}
+    <!-- {% endblock %} -->
+    <div class="center">
+      <!-- {% block nav-bar%} -->
     <div class="nav-bar">
       <ul>
         <li> <a href="{% url 'run-add' %}">Add new run</a></li>
         <li><a href="{% url 'runs' %}">See specific run</a></li>
-        <li><a href="{% url 'index' %}">See all runs</a></li>
+        <li><a href="{% url 'run-summary' %}">See all runs</a></li>
       </ul>
     </div>
-    {% endblock %}
-    {% block content%}
-    {% endblock %}
+    <!-- {% endblock %} -->
+    <div class="content">
+      {% block content%}
+      {% endblock %}
+    </div>
+    </div>
+    </div>
+    
   </body>
 </html>

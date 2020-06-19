@@ -1,0 +1,143 @@
+$main-color: #003366;
+$second-color: #001a33;
+
+
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .top {
+        display: flex;
+        flex: 1;
+        min-height: 40px;
+        background-color: $second-color;
+        border: 1px black solid;
+        box-sizing: border-box;
+
+        .title {
+          flex: 7;
+
+          h1 {
+            color: blue;
+            margin: 0;
+
+            a {
+              text-decoration: none;
+              color: blue;
+            }
+  
+            a:hover {
+              color: white;
+            }
+          }
+        }
+
+        .login {
+          flex: 1;
+          list-style-type: none;
+          color: blue;
+
+          a {
+            text-decoration: none;
+            color: blue;
+          }
+
+          a:hover {
+            color: white;
+          }
+        }
+        }
+    
+    .center {
+        flex: 12;
+        // border: 2px solid orange;
+        // box-sizing: border-box;
+        display: flex;
+        
+        // height: 100%;
+    
+        .nav-bar {
+            flex: 1;
+            background-color: $second-color;
+
+            ul {
+              list-style-type: none;
+              padding: 0;
+              margin: 0;
+
+              li {
+                border: 1px black solid;
+                font-size: 25px;
+                padding: 20px 10px;
+
+                a {
+                  text-decoration: none;
+                  color: blue;
+                }
+
+                a:hover {
+                  text-decoration: none;
+                  color: white;
+                }
+              }
+            }
+        }
+    
+        .content {
+            flex: 4;
+            background-color: $main-color;
+            display: flex;
+            flex-direction: column;
+            // padding-top: 1%;
+            // padding-left: 1%;
+            padding: 1%;
+            box-sizing: border-box;
+
+            .top-text {
+              flex: 1;
+              max-height: 130px;
+
+              h1 {
+                color: blue;
+                margin: 0;
+              }
+
+              p {
+                color: white;
+              }
+            }
+    
+            #map {
+                flex: 9 400px;
+                box-sizing: border-box;
+                width: 100%;
+                border: 2px white solid;
+                border-radius: 5px;
+              }
+            
+            .extra-content {
+                
+                flex: 1 100px;
+    
+                p {
+                    border: 2px solid blue;
+                }
+            }
+        }
+    }
+    
+}
+
+.errorlist li {
+  color: red;
+}
+
+
+
