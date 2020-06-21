@@ -1,7 +1,7 @@
 # Usage
 * Navigate to http://running-website-eu.herokuapp.com
-* The `Running website` is a hobby django project intended to help users plan and track
-their runs
+* The `Running website` is a hobby django project intended to help users store and analyze
+their running data
 
 # Development
 ## Steps to run website on local django development server
@@ -29,10 +29,16 @@ their runs
     alter role local_user SUPERUSER;
     ```
 5. Clone this repository
-6. Apply migrations, load sample data and run the server:
+6. Install node packages:
+    ```commandline
+    cd running_dashboard/static
+    npm install
+    npm run build
+    ```
+7. Apply migrations, load sample data and run the server:
     ```commandline
     python manage.py migrate
     python manage.py loaddata running_dashboard/fixtures/run.json
     python manage.py runserver
     ```
-7. Your local django server should be running and the website can be accessed at `http://127.0.0.1:8000/`
+8. Your local django server should be running and the website can be accessed at `http://127.0.0.1:8000/`
