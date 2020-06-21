@@ -1,6 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/home.css'%}" type="text/css">
+
   <h1>Add new run</h1>
     
   <form action="" enctype="multipart/form-data" method="post">

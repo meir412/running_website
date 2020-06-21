@@ -56,13 +56,9 @@ html, body {
         }
     
     .center {
-        flex: 12;
-        // border: 2px solid orange;
-        // box-sizing: border-box;
+        flex: 15;
         display: flex;
-        
-        // height: 100%;
-    
+           
         .nav-bar {
             flex: 1;
             background-color: $second-color;
@@ -95,8 +91,6 @@ html, body {
             background-color: $main-color;
             display: flex;
             flex-direction: column;
-            // padding-top: 1%;
-            // padding-left: 1%;
             padding: 1%;
             box-sizing: border-box;
 
